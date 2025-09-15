@@ -1,9 +1,10 @@
 {
-  "functions": {
-    "backend/server.js": {
-      "runtime": "nodejs18.x"
+  "builds": [
+    {
+      "src": "backend/server.js",
+      "use": "@vercel/node"
     }
-  },
+  ],
   "rewrites": [
     {
       "source": "/api/(.*)",
