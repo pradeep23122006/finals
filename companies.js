@@ -1,5 +1,5 @@
 const companies = [
-  { companyName: 'Tech Solutions', role: 'Software Intern', skills: ['JavaScript', 'React', 'Node.js'], location: 'Remote', email: 'hr@techsolutions.com', description: 'Join our innovative team and work on cutting-edge projects.' },
+  { companyName: 'Tech Solutions', role: 'Software Intern', skills: ['JavaScript', 'React', 'Node.js'], location: 'Mumbai', email: 'hr@techsolutions.com', description: 'Join our innovative team and work on cutting-edge projects.' },
   { companyName: 'Data Insights', role: 'Data Analyst Intern', skills: ['Python', 'Data Analysis', 'SQL'], location: 'Mumbai', email: 'contact@datainsights.com', description: 'Analyze large datasets and generate valuable insights.' },
   { companyName: 'Web Innovators', role: 'Frontend Developer Intern', skills: ['HTML', 'CSS', 'JavaScript'], location: 'Bangalore', email: 'jobs@webinnovators.com', description: 'Create beautiful and responsive user interfaces.' },
   { companyName: 'CloudNet', role: 'Cloud Engineer Intern', skills: ['AWS', 'Docker', 'Kubernetes'], location: 'Remote', email: 'careers@cloudnet.com', description: 'Work with the latest cloud technologies.' },
