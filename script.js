@@ -1,6 +1,9 @@
-// Function to handle form submission
+function hasSkillMatch(studentSkills, companySkills) {
+  const studentSet = new Set(studentSkills.map(s => s.toLowerCase()));
+  return companySkills.some(skill => studentSet.has(skill.toLowerCase()));
+}
+
 document.getElementById('studentForm').addEventListener('submit', function(event) {
-  console.log('Form submitted');
   event.preventDefault();
   const data = {
     name: document.getElementById('name').value,
@@ -9,34 +12,26 @@ document.getElementById('studentForm').addEventListener('submit', function(event
     location: document.getElementById('location').value
   };
 
-  // Store student details temporarily in localStorage
   localStorage.setItem('student', JSON.stringify(data));
 
-  // Perform matching locally
   performMatching(data);
 });
 
-// Function to perform matching and display results
 function performMatching(student) {
-  console.log('Performing matching');
-  const skillList = student.skills ? student.skills.split(',').map(s => s.trim()) : [];
-  let matches = companies.filter(company => {
+  const skillList = student.skills ? student.skills.split(',').map(s => s.trim().toLowerCase()) : [];
+  const matches = companies.filter(company => {
     const locationMatch = !company.location || !student.location || company.location.toLowerCase() === student.location.toLowerCase();
-    const skillMatch = hasSkillMatch(skillList, company.skills);
+    const skillMatch = company.skills.some(skill => skillList.includes(skill.toLowerCase()));
     return locationMatch && skillMatch;
   });
 
-  if (matches.length < 2) {
-    const defaultCompanies = companies.slice(0, 2);
-    matches = [...new Set([...matches, ...defaultCompanies])];
-  }
+  // Show only 2 matches
+  const limitedMatches = matches.slice(0, 2);
 
-  displayMatches(matches);
+  displayMatches(limitedMatches);
 }
 
-// Function to display matches
 function displayMatches(matches) {
-  console.log('Displaying matches:', matches);
   const matchesDiv = document.getElementById('matches');
   const matchesList = document.getElementById('matchesList');
 
@@ -46,21 +41,28 @@ function displayMatches(matches) {
   if (matches.length === 0) {
     matchesList.innerHTML = '<p>No matching internships found.</p>';
   } else {
-    matchesList.innerHTML = '<h3>Matching Internship Opportunities</h3><p>Here are some internships that match your skills and preferences. Click the Apply button to submit your application.</p>';
     matches.forEach(match => {
       const matchDiv = document.createElement('div');
       matchDiv.className = 'card mb-3';
       matchDiv.innerHTML = `
         <div class="card-body">
           <h5 class="card-title">${match.companyName} - ${match.role}</h5>
-          <p class="card-text"><b>Description:</b> ${match.description}</p>
-          <p class="card-text"><b>Required Skills:</b> ${match.skills.join(', ')}</p>
-          <p class="card-text"><b>Location:</b> ${match.location}</p>
-          <p class="card-text"><b>Contact:</b> ${match.email}</p>
-          <button class="btn btn-primary">Apply</button>
+          <p class="card-text">Required Skills: ${match.skills.join(', ')}</p>
+          <p class="card-text">Location: ${match.location}</p>
+          <p class="card-text">Contact: ${match.email}</p>
+          <button class="btn btn-primary btn-sm apply-btn" data-email="${match.email}">Apply</button>
+          <p class="mt-2"><strong>Instructions:</strong> Please contact the company via email to apply.</p>
         </div>
       `;
       matchesList.appendChild(matchDiv);
+    });
+
+    // Add event listeners to apply buttons
+    document.querySelectorAll('.apply-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        const email = button.getAttribute('data-email');
+        alert(`To apply, please send your application to: ${email}`);
+      });
     });
   }
 }
