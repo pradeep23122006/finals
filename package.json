@@ -1,0 +1,17 @@
+{
+  "name": "ai-internship-allocation",
+  "version": "1.0.0",
+  "description": "Modernized AI Internship Allocation website with dev server",
+  "scripts": {
+    "dev": "vite"
+  },
+  "devDependencies": {
+    "vite": "^4.0.0"
+  },
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "nodemailer": "^7.0.6"
+  }
+}
