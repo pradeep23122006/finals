@@ -1,18 +1,3 @@
-// Sample company details
-const companies = [
-  { companyName: 'Tech Solutions', role: 'Software Intern', skills: ['JavaScript', 'React', 'Node.js'], location: 'Remote', email: 'hr@techsolutions.com' },
-  { companyName: 'Data Insights', role: 'Data Analyst Intern', skills: ['Python', 'Data Analysis', 'SQL'], location: 'Mumbai', email: 'contact@datainsights.com' },
-  { companyName: 'Web Innovators', role: 'Frontend Developer Intern', skills: ['HTML', 'CSS', 'JavaScript'], location: 'Bangalore', email: 'jobs@webinnovators.com' },
-  { companyName: 'CloudNet', role: 'Cloud Engineer Intern', skills: ['AWS', 'Docker', 'Kubernetes'], location: 'Remote', email: 'careers@cloudnet.com' },
-  { companyName: 'AI Labs', role: 'AI Research Intern', skills: ['Python', 'Machine Learning', 'TensorFlow'], location: 'Pune', email: 'hr@ailabs.com' }
-];
-
-// Helper function to check skill match
-function hasSkillMatch(studentSkills, companySkills) {
-  const studentSet = new Set(studentSkills.map(s => s.toLowerCase()));
-  return companySkills.some(skill => studentSet.has(skill.toLowerCase()));
-}
-
 // Function to handle form submission
 document.getElementById('studentForm').addEventListener('submit', function(event) {
   console.log('Form submitted');
@@ -35,11 +20,16 @@ document.getElementById('studentForm').addEventListener('submit', function(event
 function performMatching(student) {
   console.log('Performing matching');
   const skillList = student.skills ? student.skills.split(',').map(s => s.trim()) : [];
-  const matches = companies.filter(company => {
+  let matches = companies.filter(company => {
     const locationMatch = !company.location || !student.location || company.location.toLowerCase() === student.location.toLowerCase();
     const skillMatch = hasSkillMatch(skillList, company.skills);
     return locationMatch && skillMatch;
   });
+
+  if (matches.length < 2) {
+    const defaultCompanies = companies.slice(0, 2);
+    matches = [...new Set([...matches, ...defaultCompanies])];
+  }
 
   displayMatches(matches);
 }
@@ -56,15 +46,18 @@ function displayMatches(matches) {
   if (matches.length === 0) {
     matchesList.innerHTML = '<p>No matching internships found.</p>';
   } else {
+    matchesList.innerHTML = '<h3>Matching Internship Opportunities</h3><p>Here are some internships that match your skills and preferences. Click the Apply button to submit your application.</p>';
     matches.forEach(match => {
       const matchDiv = document.createElement('div');
       matchDiv.className = 'card mb-3';
       matchDiv.innerHTML = `
         <div class="card-body">
           <h5 class="card-title">${match.companyName} - ${match.role}</h5>
-          <p class="card-text">Required Skills: ${match.skills.join(', ')}</p>
-          <p class="card-text">Location: ${match.location}</p>
-          <p class="card-text">Contact: ${match.email}</p>
+          <p class="card-text"><b>Description:</b> ${match.description}</p>
+          <p class="card-text"><b>Required Skills:</b> ${match.skills.join(', ')}</p>
+          <p class="card-text"><b>Location:</b> ${match.location}</p>
+          <p class="card-text"><b>Contact:</b> ${match.email}</p>
+          <button class="btn btn-primary">Apply</button>
         </div>
       `;
       matchesList.appendChild(matchDiv);
