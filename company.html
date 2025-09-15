@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Company Registration</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-light">
+<header style="display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+  <div style="display: flex; align-items: center;">
+    <img src="https://pminternship.mca.gov.in/assets/img/MCA.svg" alt="MCA Logo" style="height: 50px; margin-right: 20px;">
+    <img src="https://pminternship.mca.gov.in/assets/images/img/pm_internship_logo_eng.svg" alt="PM Internship Logo" style="height: 50px;">
+  </div>
+  <div>
+    <a href="login.html" class="btn btn-modern btn-primary-modern m-1" style="min-width: 80px;">Login</a>
+    <a href="signup.html" class="btn btn-modern btn-success-modern m-1" style="min-width: 80px;">Sign Up</a>
+  </div>
+</header>
+<div class="container mt-5 fade-in">
+  <h2>Company Internship Registration</h2>
+  <form id="companyForm">
+    <div class="mb-3">
+      <label class="form-label">Company Name</label>
+      <input type="text" id="companyName" class="form-control" placeholder="Enter company name" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Internship Role</label>
+      <input type="text" id="role" class="form-control" placeholder="Enter the role" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Required Skills</label>
+      <input type="text" id="skills" class="form-control" placeholder="e.g., Python, Data Analysis" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Location</label>
+      <input type="text" id="location" class="form-control" placeholder="City name">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Email</label>
+      <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+    </div>
+    <button type="submit" class="btn btn-modern btn-success-modern">Register</button>
+  </form>
+  <a href="index.html" class="btn btn-modern btn-link-modern mt-3">Back to Home</a>
+</div>
+<script>
+  document.getElementById('companyForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    const data = {
+      companyName: document.getElementById('companyName').value,
+      role: document.getElementById('role').value,
+      skills: document.getElementById('skills').value,
+      location: document.getElementById('location').value,
+      email: document.getElementById('email').value
+    };
+    try {
+      const response = await fetch('http://localhost:3001/api/register/company', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      const result = await response.json();
+      alert(result.message);
+    } catch (error) {
+      alert('Registration failed. Please try again.');
+    }
+  });
+</script>
+</body>
+</html>
