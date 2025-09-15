@@ -15,6 +15,7 @@ function hasSkillMatch(studentSkills, companySkills) {
 
 // Function to handle form submission
 document.getElementById('studentForm').addEventListener('submit', function(event) {
+  console.log('Form submitted');
   event.preventDefault();
   const data = {
     name: document.getElementById('name').value,
@@ -32,6 +33,7 @@ document.getElementById('studentForm').addEventListener('submit', function(event
 
 // Function to perform matching and display results
 function performMatching(student) {
+  console.log('Performing matching');
   const skillList = student.skills ? student.skills.split(',').map(s => s.trim()) : [];
   const matches = companies.filter(company => {
     const locationMatch = !company.location || !student.location || company.location.toLowerCase() === student.location.toLowerCase();
@@ -44,6 +46,7 @@ function performMatching(student) {
 
 // Function to display matches
 function displayMatches(matches) {
+  console.log('Displaying matches:', matches);
   const matchesDiv = document.getElementById('matches');
   const matchesList = document.getElementById('matchesList');
 
