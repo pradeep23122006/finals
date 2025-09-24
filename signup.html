@@ -36,10 +36,10 @@ th<!DOCTYPE html>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-<script>
-  // Initialize EmailJS with your public key
-  emailjs.init('Mk9JcDaVYLTSsv4KB');
+<script type="module">
+  import { init, send } from 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
+
+  init('Mk9JcDaVYLTSsv4KB');
 
   document.getElementById('signupForm').addEventListener('submit', async function(event) {
     event.preventDefault();
@@ -53,15 +53,19 @@ th<!DOCTYPE html>
     };
 
     try {
-      // Save data to localStorage
-      localStorage.setItem('userProfile', JSON.stringify(data));
+      // Save data to localStorage with email key
+      const userKey = 'user_' + data.email;
+      localStorage.setItem(userKey, JSON.stringify(data));
 
       // Send email using EmailJS
-      await emailjs.send('service_cz606uf', 'template_uwuudt4', {
+      await send('service_cz606uf', 'template_uwuudt4', {
         to_email: data.email,
         student_name: data.name,
         // Add other template variables as needed
       });
+
+      // Set current user in session
+      sessionStorage.setItem('currentUser', userKey);
 
       // Redirect to profile page
       window.location.href = 'profile.html';

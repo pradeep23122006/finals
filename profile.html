@@ -60,20 +60,26 @@
 <script>
   // Load profile data from localStorage
   function loadProfile() {
-    const profile = JSON.parse(localStorage.getItem('userProfile'));
-    if (profile) {
-      document.getElementById('displayName').textContent = profile.name;
-      document.getElementById('displayEmail').textContent = profile.email;
-      document.getElementById('displaySkills').textContent = profile.skills;
-      document.getElementById('displayLocation').textContent = profile.location;
+    const userKey = sessionStorage.getItem('currentUser');
+    if (userKey) {
+      const profile = JSON.parse(localStorage.getItem(userKey));
+      if (profile) {
+        document.getElementById('displayName').textContent = profile.name;
+        document.getElementById('displayEmail').textContent = profile.email;
+        document.getElementById('displaySkills').textContent = profile.skills;
+        document.getElementById('displayLocation').textContent = profile.location;
+      } else {
+        // If no profile, redirect to signup
+        window.location.href = 'signup.html';
+      }
     } else {
-      // If no profile, redirect to signup
-      window.location.href = 'signup.html';
+      window.location.href = 'login.html';
     }
   }
 
   function editProfile() {
-    const profile = JSON.parse(localStorage.getItem('userProfile'));
+    const userKey = sessionStorage.getItem('currentUser');
+    const profile = JSON.parse(localStorage.getItem(userKey));
     document.getElementById('editName').value = profile.name;
     document.getElementById('editEmail').value = profile.email;
     document.getElementById('editSkills').value = profile.skills;
@@ -95,7 +101,8 @@
       skills: document.getElementById('editSkills').value,
       location: document.getElementById('editLocation').value
     };
-    localStorage.setItem('userProfile', JSON.stringify(updatedProfile));
+    const userKey = sessionStorage.getItem('currentUser');
+    localStorage.setItem(userKey, JSON.stringify(updatedProfile));
     loadProfile();
     cancelEdit();
   });

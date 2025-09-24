@@ -43,7 +43,11 @@
   </form>
   <a href="index.html" class="btn btn-modern btn-link-modern mt-3">Back to Home</a>
 </div>
-<script>
+<script type="module">
+  import { init, send } from 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
+
+  init('Mk9JcDaVYLTSsv4KB');
+
   document.getElementById('companyForm').addEventListener('submit', async function(event) {
     event.preventDefault();
     const data = {
@@ -54,16 +58,25 @@
       email: document.getElementById('email').value
     };
     try {
-      const response = await fetch('http://localhost:3000/api/register/company', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
+      // Save data to localStorage with email key
+      const userKey = 'user_' + data.email;
+      localStorage.setItem(userKey, JSON.stringify(data));
+
+      // Send email using EmailJS
+      await send('service_cz606uf', 'template_uwuudt4', {
+        to_email: data.email,
+        student_name: data.companyName, // Adjust template variable
+        // Add other template variables as needed
       });
-      const result = await response.json();
-      alert(result.message);
-      // Optionally, redirect or update UI
+
+      // Set current user in session
+      sessionStorage.setItem('currentUser', userKey);
+
+      alert('Company registration successful! Confirmation email sent.');
+      // Redirect to profile page
+      window.location.href = 'profile.html';
     } catch (error) {
-      alert('Registration failed. Please try again.');
+      alert('Registration failed: ' + error.text || error.message);
     }
   });
 </script>

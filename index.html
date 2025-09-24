@@ -1,57 +1,252 @@
-<!DOCTYPE html>
 <html>
 <head>
-  <title>AI Internship Allocation</title>
+  <title>PM Internship Scheme</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-light">
-  <header style="display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-    <div style="display: flex; align-items: center;">
-      <img src="https://pminternship.mca.gov.in/assets/img/MCA.svg" alt="MCA Logo" style="height: 50px; margin-right: 20px;">
-      <img src="https://pminternship.mca.gov.in/assets/images/img/pm_internship_logo_eng.svg" alt="PM Internship Logo" style="height: 50px;">
-    </div>
-    <div>
-      <a href="login.html" class="btn btn-modern btn-primary-modern m-1" style="min-width: 80px;">Login</a>
-      <a href="signup.html" class="btn btn-modern btn-success-modern m-1" style="min-width: 80px;">Sign Up</a>
-    </div>
-  </header>
-  <div class="container text-center mt-5 fade-in" style="min-height: 70vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-    <h1 class="mb-5" style="font-size: 3.5rem; font-weight: 700; color: white; text-shadow: 3px 3px 8px rgba(0,0,0,0.6);">AI Internship Allocation</h1>
-
-    <!-- Navigation buttons (keep here only) -->
-    <div style="display: flex; gap: 30px; flex-wrap: wrap; justify-content: center; width: 100%; max-width: 600px;">
-    <a href="student.html" class="btn btn-modern btn-info-modern m-2 flex-grow-1" style="min-width: 180px;">Student Registration</a>
-    <a href="company.html" class="btn btn-modern btn-info-modern m-2 flex-grow-1" style="min-width: 180px;">Company Registration</a>
-    <a href="schemes.html" class="btn btn-modern btn-info-modern m-2 flex-grow-1" style="min-width: 180px;">PM Internship Schemes</a>
-    <a href="eligibility.html" class="btn btn-modern btn-info-modern m-2 flex-grow-1" style="min-width: 180px;">Eligibility</a>
-  </div>
-  <!-- Removed Back to Home button as per user request -->
-
-    <!-- Gallery Section -->
-    <div class="mt-5" style="width: 100%; max-width: 800px;">
-      <h3 class="mb-4" style="color: white; text-align: center; font-weight: 700; font-size: 1.8rem; border-bottom: 2px solid #ff6600; display: inline-block; padding-bottom: 5px; margin-bottom: 30px;">Social Media Gallery</h3>
-      <div class="text-center" style="cursor: pointer;">
-        <iframe width="600" height="338" src="https://www.youtube.com/embed/kW24rCEkAwM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);"></iframe>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container" style="display: flex; align-items: center; justify-content: space-between;">
+      <div style="display: flex; align-items: center;">
+        <img src="https://pminternship.mca.gov.in/assets/img/MCA.svg" alt="MCA Logo" style="height: 50px; margin-right: 20px;">
+        <img src="https://pminternship.mca.gov.in/assets/images/img/pm_internship_logo_eng.svg" alt="PM Internship Logo" style="height: 50px;">
+      </div>
+      <div>
+        <a href="index.html" class="btn btn-link-modern">Home</a>
+        <a href="schemes.html" class="btn btn-link-modern">About Scheme</a>
+        <a href="signup.html" class="btn btn-link-modern">Student Registration</a>
+        <a href="company.html" class="btn btn-link-modern">Company Registration</a>
+        <a href="guidelines.html" class="btn btn-link-modern">Guidelines</a>
+        <a href="contact.html" class="btn btn-link-modern">Contact Us</a>
       </div>
     </div>
+  </nav>
+
+  <!-- Banner Section -->
+  <section class="banner text-center">
+    <h1>PM Internship Scheme</h1>
+    <p>Empowering Students, Enabling Companies</p>
+  </section>
+  <div class="text-center mt-4" style="display: flex; justify-content: center; gap: 20px;">
+    <a href="login.html" class="btn btn-modern btn-primary-modern" style="min-width: 120px;">Login</a>
+    <a href="signup.html" class="btn btn-modern btn-success-modern" style="min-width: 120px;">Sign Up</a>
   </div>
 
-  <!-- Video Modal -->
-  <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="videoModalLabel">Video</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  <!-- News/Updates Section -->
+  <section class="news-section py-5">
+    <div class="container">
+      <h2 class="text-center mb-4">Latest News & Updates</h2>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">New Internship Opportunities</h5>
+              <p class="card-text">Exciting new internships available in tech and finance sectors. Apply now!</p>
+              <a href="#" class="btn btn-primary-modern">Read More</a>
+            </div>
+          </div>
         </div>
-        <div class="modal-body">
-          <div class="ratio ratio-16x9">
-            <iframe src="https://www.youtube.com/embed/kW24rCEkAwM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Scheme Extension</h5>
+              <p class="card-text">The PM Internship Scheme has been extended to include more participants.</p>
+              <a href="#" class="btn btn-primary-modern">Read More</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Training Workshops</h5>
+              <p class="card-text">Upcoming workshops to help students prepare for internships.</p>
+              <a href="#" class="btn btn-primary-modern">Read More</a>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer bg-dark text-white py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h5>Contact Information</h5>
+          <p>Email: support@pminternship.gov.in</p>
+          <p>Phone: +91-11-12345678</p>
+          <p>Address: Ministry of Corporate Affairs, New Delhi, India</p>
+        </div>
+        <div class="col-md-6 text-end">
+          <h5>Help & Support</h5>
+          <button id="startTourBtn" class="btn btn-outline-light">Start Tour</button>
+          <p class="mt-2">Need help? Take a guided tour of the website.</p>
+        </div>
+      </div>
+      <hr>
+      <p class="text-center mb-0">© 2023 PM Internship Scheme. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Shepherd.js CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shepherd.js@11.2.0/dist/css/shepherd.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Shepherd.js JS -->
+  <script src="https://cdn.jsdelivr.net/npm/shepherd.js@11.2.0/dist/js/shepherd.min.js"></script>
+  <script>
+    // Remove backend server dependency by using localStorage for tour completion flag
+    const tour = new Shepherd.Tour({
+      useModalOverlay: true,
+      defaultStepOptions: {
+        classes: 'shepherd-theme-default',
+        scrollTo: true,
+        cancelIcon: {
+          enabled: true
+        }
+      }
+    });
+
+    tour.addStep({
+      id: 'welcome',
+      text: 'Welcome to the PM Internship Scheme Portal. Let’s take a quick tour!',
+      buttons: [
+        {
+          text: 'Next',
+          action: tour.next
+        },
+        {
+          text: 'Skip Tour',
+          action: tour.cancel
+        }
+      ],
+      title: 'Welcome',
+      // Improve font clarity and neatness
+      textClass: 'tour-text-clear'
+    });
+
+    tour.addStep({
+      id: 'navbar',
+      text: 'Here you can access Home, About Scheme, Student Registration, Company Registration, Guidelines, and Contact.',
+      attachTo: {
+        element: '.navbar',
+        on: 'bottom'
+      },
+      buttons: [
+        {
+          text: 'Next',
+          action: tour.next
+        },
+        {
+          text: 'Skip Tour',
+          action: tour.cancel
+        }
+      ]
+    });
+
+    tour.addStep({
+      id: 'banner',
+      text: 'This section gives you the scheme name and key highlights.',
+      attachTo: {
+        element: '.banner',
+        on: 'bottom'
+      },
+      buttons: [
+        {
+          text: 'Next',
+          action: tour.next
+        },
+        {
+          text: 'Skip Tour',
+          action: tour.cancel
+        }
+      ]
+    });
+
+    tour.addStep({
+      id: 'student-reg',
+      text: 'Students can register here to apply for internships.',
+      attachTo: {
+        element: 'a[href="signup.html"]',
+        on: 'bottom'
+      },
+      buttons: [
+        {
+          text: 'Next',
+          action: tour.next
+        },
+        {
+          text: 'Skip Tour',
+          action: tour.cancel
+        }
+      ]
+    });
+
+    tour.addStep({
+      id: 'company-reg',
+      text: 'Companies can register here to provide internship opportunities.',
+      attachTo: {
+        element: 'a[href="company.html"]',
+        on: 'bottom'
+      },
+      buttons: [
+        {
+          text: 'Next',
+          action: tour.next
+        },
+        {
+          text: 'Skip Tour',
+          action: tour.cancel
+        }
+      ]
+    });
+
+    tour.addStep({
+      id: 'news',
+      text: 'Here you will find the latest announcements and scheme updates.',
+      attachTo: {
+        element: '.news-section',
+        on: 'top'
+      },
+      buttons: [
+        {
+          text: 'Next',
+          action: tour.next
+        },
+        {
+          text: 'Skip Tour',
+          action: tour.cancel
+        }
+      ]
+    });
+
+    tour.addStep({
+      id: 'footer',
+      text: 'At the bottom, you’ll find contact info, helplines, and legal disclaimers. That’s the end of the tour 🎉.',
+      attachTo: {
+        element: 'footer',
+        on: 'top'
+      },
+      buttons: [
+        {
+          text: 'Finish',
+          action: tour.complete
+        }
+      ]
+    });
+
+    // Start tour on button click
+    document.getElementById('startTourBtn').addEventListener('click', () => {
+      tour.start();
+    });
+
+    // Optionally start tour on first visit
+    if (!localStorage.getItem('tourCompleted')) {
+      tour.start();
+      localStorage.setItem('tourCompleted', 'true');
+    }
+  </script>
 </body>
 </html>

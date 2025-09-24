@@ -29,9 +29,23 @@
 <script>
   document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault();
-    // Simulate login success
-    alert('Login successful!');
-    window.location.href = 'index.html';
+    const email = document.querySelector('input[type="email"]').value;
+    const password = document.querySelector('input[type="password"]').value;
+
+    // Check if user exists in localStorage
+    const userKey = 'user_' + email;
+    const userData = localStorage.getItem(userKey);
+
+    if (userData) {
+      const user = JSON.parse(userData);
+      // Since no password in signup, just check email
+      alert('Login successful!');
+      // Store current user in session
+      sessionStorage.setItem('currentUser', userKey);
+      window.location.href = 'profile.html';
+    } else {
+      alert('User not found. Please sign up first.');
+    }
   });
 </script>
 </body>
