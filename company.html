@@ -54,13 +54,14 @@
       email: document.getElementById('email').value
     };
     try {
-      const response = await fetch('http://localhost:3001/api/register/company', {
+      const response = await fetch('http://localhost:3000/api/register/company', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       });
       const result = await response.json();
       alert(result.message);
+      // Optionally, redirect or update UI
     } catch (error) {
       alert('Registration failed. Please try again.');
     }

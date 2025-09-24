@@ -112,6 +112,35 @@ function toggleOtherLocation() {
   <div id="matchesList"></div>
 </div>
 <script src="companies.js"></script>
-<script src="script.js"></script> 
+<script src="script.js"></script>
+<script>
+  document.getElementById('studentForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const skills = document.getElementById('skills').value;
+    const locationSelect = document.getElementById('location');
+    let location = locationSelect.value;
+    if (location === 'Other') {
+      location = document.getElementById('otherLocation').value;
+    }
+
+    const data = { name, email, skills, location };
+
+    try {
+      const response = await fetch('http://localhost:3000/api/register/student', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      const result = await response.json();
+      alert(result.message);
+      // Optionally, redirect or update UI
+    } catch (error) {
+      alert('Registration failed. Please try again.');
+    }
+  });
+</script>
 </body>
 </html>
