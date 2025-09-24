@@ -38,6 +38,10 @@ app.get('/student', (req, res) => {
   res.sendFile(path.join(__dirname, 'student.html'));
 });
 
+app.get('/profile', (req, res) => {
+  res.sendFile(path.join(__dirname, 'profile.html'));
+});
+
 
 // Export for Vercel serverless function
 module.exports = app;
