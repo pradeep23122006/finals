@@ -33,7 +33,75 @@
     </div>
     <div class="mb-3">
       <label class="form-label">Preferred Location</label>
-      <input type="text" id="location" class="form-control" placeholder="e.g., Mumbai, Remote">
+      <select id="location" class="form-control" onchange="toggleOtherLocation()">
+        <option value="">Select a city</option>
+        <option value="Mumbai">Mumbai</option>
+        <option value="Delhi">Delhi</option>
+        <option value="Bangalore">Bangalore</option>
+        <option value="Hyderabad">Hyderabad</option>
+        <option value="Chennai">Chennai</option>
+        <option value="Kolkata">Kolkata</option>
+        <option value="Pune">Pune</option>
+        <option value="Ahmedabad">Ahmedabad</option>
+        <option value="Jaipur">Jaipur</option>
+        <option value="Surat">Surat</option>
+        <option value="Lucknow">Lucknow</option>
+        <option value="Kanpur">Kanpur</option>
+        <option value="Nagpur">Nagpur</option>
+        <option value="Indore">Indore</option>
+        <option value="Bhopal">Bhopal</option>
+        <option value="Visakhapatnam">Visakhapatnam</option>
+        <option value="Patna">Patna</option>
+        <option value="Vadodara">Vadodara</option>
+        <option value="Ghaziabad">Ghaziabad</option>
+        <option value="Ludhiana">Ludhiana</option>
+        <option value="Agra">Agra</option>
+        <option value="Nashik">Nashik</option>
+        <option value="Faridabad">Faridabad</option>
+        <option value="Meerut">Meerut</option>
+        <option value="Rajkot">Rajkot</option>
+        <option value="Kalyan-Dombivli">Kalyan-Dombivli</option>
+        <option value="Vasai-Virar">Vasai-Virar</option>
+        <option value="Varanasi">Varanasi</option>
+        <option value="Srinagar">Srinagar</option>
+        <option value="Aurangabad">Aurangabad</option>
+        <option value="Dhanbad">Dhanbad</option>
+        <option value="Amritsar">Amritsar</option>
+        <option value="Navi Mumbai">Navi Mumbai</option>
+        <option value="Allahabad">Allahabad</option>
+        <option value="Ranchi">Ranchi</option>
+        <option value="Howrah">Howrah</option>
+        <option value="Coimbatore">Coimbatore</option>
+        <option value="Jabalpur">Jabalpur</option>
+        <option value="Gwalior">Gwalior</option>
+        <option value="Vijayawada">Vijayawada</option>
+        <option value="Jodhpur">Jodhpur</option>
+        <option value="Madurai">Madurai</option>
+        <option value="Raipur">Raipur</option>
+        <option value="Kota">Kota</option>
+        <option value="Guwahati">Guwahati</option>
+        <option value="Chandigarh">Chandigarh</option>
+        <option value="Solapur">Solapur</option>
+        <option value="Hubli–Dharwad">Hubli–Dharwad</option>
+        <option value="Bareilly">Bareilly</option>
+        <option value="Mysore">Mysore</option>
+        <option value="Tiruchirappalli">Tiruchirappalli</option>
+        <option value="Other">Other</option>
+      </select>
+      <input type="text" id="otherLocation" class="form-control mt-2" placeholder="Enter other location" style="display:none;">
+<script>
+function toggleOtherLocation() {
+  var locationSelect = document.getElementById('location');
+  var otherInput = document.getElementById('otherLocation');
+  if (locationSelect.value === 'Other') {
+    otherInput.style.display = 'block';
+    otherInput.required = true;
+  } else {
+    otherInput.style.display = 'none';
+    otherInput.required = false;
+  }
+}
+</script>
     </div>
     <button type="submit" class="btn btn-modern btn-primary-modern">Register</button>
   </form>
@@ -44,6 +112,6 @@
   <div id="matchesList"></div>
 </div>
 <script src="companies.js"></script>
-<script src="script.js"></script>
+<script src="script.js"></script> 
 </body>
 </html>
