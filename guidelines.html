@@ -7,8 +7,8 @@
 </head>
 <body class="bg-light">
 <header style="display: flex; justify-content: flex-start; align-items: center; padding: 10px 20px; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-  <img src="https://pminternship.mca.gov.in/assets/img/MCA.svg" alt="MCA Logo" style="height: 50px; margin-right: 20px;">
-  <img src="https://pminternship.mca.gov.in/assets/images/img/pm_internship_logo_eng.svg" alt="PM Internship Logo" style="height: 50px;">
+  <img src="MCA.svg" alt="MCA Logo" style="height: 50px; margin-right: 20px;">
+  <img src="pm_internship_logo_eng.svg" alt="PM Internship Logo" style="height: 50px;">
 </header>
 <div class="container mt-5 fade-in">
   <h1 class="text-center mb-4">Guidelines: Step-by-Step Tutorial for PM Internship Scheme</h1>
@@ -34,7 +34,7 @@
           <h5>Step 3: Choose Your Registration Type</h5>
           <p>After logging in, choose whether you are a student or a company. Click on "Student Registration" if you are a student looking for internships, or "Company Registration" if you are a company offering internships.</p>
           <div class="mt-2">
-            <a href="signup.html" class="btn btn-modern btn-info-modern me-2">Student Registration</a>
+            <a href="student.html" class="btn btn-modern btn-info-modern me-2">Student Registration</a>
             <a href="company.html" class="btn btn-modern btn-info-modern">Company Registration</a>
           </div>
         </li>
@@ -69,5 +69,39 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Footer -->
+<footer class="footer bg-dark text-white py-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h5>Contact Information</h5>
+        <p>Email: support@pminternship.gov.in</p>
+        <p>Phone: +91-11-12345678</p>
+      </div>
+      <div class="col-md-6 text-end">
+        <h5>Help & Support</h5>
+        <p class="mt-2">Need help? Contact us.</p>
+      </div>
+    </div>
+    <hr>
+    <p class="text-center mb-0">© 2025 PM Internship Scheme. All rights reserved.</p>
+  </div>
+</footer>
+
+  <!-- AI Chatbot -->
+  <div id="chat-window" class="chat-window">
+    <div class="chat-header">
+      <h5>PM Internship Assistant</h5>
+      <span id="close-chat">&times;</span>
+    </div>
+    <div id="chat-messages"></div>
+    <form id="chat-form">
+      <input type="text" id="chat-input" placeholder="Type your message...">
+      <button type="submit">Send</button>
+    </form>
+  </div>
+  <button id="chatbot-btn" class="chatbot-btn"><img src="https://cdn.shopify.com/app-store/listing_images/e01adf90e60dcfdb4e39b5485859d18b/icon/CMrqusKG_4wDEAE=.png" alt="AI Bot"></button>
+  <script src="chatbot.js"></script>
 </body>
 </html>

@@ -13,11 +13,10 @@
   </div>
   <div>
     <a href="login.html" class="btn btn-modern btn-primary-modern m-1" style="min-width: 80px;">Login</a>
-    <a href="signup.html" class="btn btn-modern btn-success-modern m-1" style="min-width: 80px;">Sign Up</a>
   </div>
 </header>
 <div class="container mt-5 fade-in">
-  <h2>Student Registration</h2>
+<h2>Student Registration</h2>
   <form id="studentForm">
     <div class="mb-3">
       <label class="form-label">Name</label>
@@ -107,6 +106,73 @@ function toggleOtherLocation() {
   </form>
   <a href="index.html" class="btn btn-modern btn-link-modern mt-3">Back to Home</a>
 </div>
+<div id="spinner" class="mt-5 text-center" style="display: none; padding: 20px;">
+  <div class="ai-icon-small"></div>
+  <p class="thinking-text" style="color: #333; font-size: 1rem; margin-top: 10px;">AI is matching internships<span class="dots"></span></p>
+</div>
+<style>
+.ai-icon-small {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #00ffff 0%, #0080ff 50%, #800080 100%);
+  position: relative;
+  margin: 0 auto;
+  animation: rotate 3s linear infinite, pulse 1.5s ease-in-out infinite alternate;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+.ai-icon-small::before,
+.ai-icon-small::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: conic-gradient(from 0deg, transparent 0deg, #00ffff 90deg, transparent 180deg, #800080 270deg, transparent 360deg);
+  animation: wave 2s ease-in-out infinite;
+}
+
+.ai-icon-small::after {
+  animation-delay: -1s;
+  opacity: 0.7;
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 10px rgba(0, 255, 255, 0.3); }
+  100% { box-shadow: 0 0 20px rgba(128, 0, 128, 0.5), 0 0 30px rgba(0, 255, 255, 0.4); }
+}
+
+@keyframes wave {
+  0%, 100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+  50% { transform: translate(-50%, -50%) scale(1.05) rotate(180deg); }
+}
+
+.thinking-text {
+  font-size: 1rem;
+  margin-top: 5px;
+}
+
+.dots::after {
+  content: '';
+  animation: dots 1.5s infinite;
+}
+
+@keyframes dots {
+  0%, 20% { content: ''; }
+  40% { content: '.'; }
+  60% { content: '..'; }
+  80%, 100% { content: '...'; }
+}
+</style>
 <div id="matches" class="mt-5" style="display: none;">
   <h3>Matching Internship Opportunities</h3>
   <div id="matchesList"></div>
@@ -114,33 +180,105 @@ function toggleOtherLocation() {
 <script src="companies.js"></script>
 <script src="script.js"></script>
 <script>
-  document.getElementById('studentForm').addEventListener('submit', async function(event) {
+  document.getElementById('studentForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
-    const skills = document.getElementById('skills').value;
+    const skillsInput = document.getElementById('skills').value;
     const locationSelect = document.getElementById('location');
     let location = locationSelect.value;
     if (location === 'Other') {
       location = document.getElementById('otherLocation').value;
     }
 
-    const data = { name, email, skills, location };
+    // Temporarily store data (in real app, send to backend)
+    const studentData = { name, email, skills: skillsInput.split(',').map(s => s.trim().toLowerCase()), location: location.toLowerCase() };
 
-    try {
-      const response = await fetch('http://localhost:3000/api/register/student', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
-      const result = await response.json();
-      alert(result.message);
-      // Optionally, redirect or update UI
-    } catch (error) {
-      alert('Registration failed. Please try again.');
-    }
+    // Show spinner
+    document.getElementById('spinner').style.display = 'block';
+
+    // Simulate matching after 3 seconds
+    setTimeout(() => {
+      // Hide spinner
+      document.getElementById('spinner').style.display = 'none';
+
+      // Find matching internships
+      const matches = findMatchingInternships(studentData);
+
+      // Display matches
+      displayMatches(matches);
+
+      // Show matches section
+      document.getElementById('matches').style.display = 'block';
+    }, 3000);
   });
+
+  function findMatchingInternships(student) {
+    // Filter companies by location and skills
+    let filtered = companies.filter(company => {
+      const locationMatch = company.location.toLowerCase() === student.location;
+      const skillsMatch = company.skills.some(skill => student.skills.includes(skill.toLowerCase()));
+      return locationMatch && skillsMatch;
+    });
+
+    // If less than 2, add some with location match only
+    if (filtered.length < 2) {
+      const locationOnly = companies.filter(company => 
+        company.location.toLowerCase() === student.location && !filtered.includes(company)
+      );
+      filtered = filtered.concat(locationOnly.slice(0, 2 - filtered.length));
+    }
+
+    // If still less, add random
+    if (filtered.length < 2) {
+      const others = companies.filter(company => !filtered.includes(company));
+      filtered = filtered.concat(others.slice(0, 2 - filtered.length));
+    }
+
+    // Sort by number of matching skills
+    filtered.sort((a, b) => {
+      const aMatches = a.skills.filter(skill => student.skills.includes(skill.toLowerCase())).length;
+      const bMatches = b.skills.filter(skill => student.skills.includes(skill.toLowerCase())).length;
+      return bMatches - aMatches;
+    });
+
+    return filtered.slice(0, 2); // At least 2
+  }
+
+  function displayMatches(matches) {
+    const matchesList = document.getElementById('matchesList');
+    matchesList.innerHTML = '';
+    matches.forEach(match => {
+      const matchDiv = document.createElement('div');
+      matchDiv.className = 'card mb-3';
+      matchDiv.innerHTML = `
+        <div class="card-body">
+          <h5 class="card-title">${match.companyName} - ${match.role}</h5>
+          <p class="card-text"><strong>Skills:</strong> ${match.skills.join(', ')}</p>
+          <p class="card-text"><strong>Location:</strong> ${match.location}</p>
+          <p class="card-text">${match.description}</p>
+          <p class="card-text"><strong>Contact:</strong> ${match.email}</p>
+        </div>
+      `;
+      matchesList.appendChild(matchDiv);
+    });
+  }
 </script>
+
+  <!-- AI Chatbot -->
+  <div id="chat-window" class="chat-window">
+    <div class="chat-header">
+      <h5>PM Internship Assistant</h5>
+      <span id="close-chat">&times;</span>
+    </div>
+    <div id="chat-messages"></div>
+    <form id="chat-form">
+      <input type="text" id="chat-input" placeholder="Type your message...">
+      <button type="submit">Send</button>
+    </form>
+  </div>
+  <button id="chatbot-btn" class="chatbot-btn"><img src="https://cdn.shopify.com/app-store/listing_images/e01adf90e60dcfdb4e39b5485859d18b/icon/CMrqusKG_4wDEAE=.png" alt="AI Bot"></button>
+  <script src="chatbot.js"></script>
 </body>
 </html>

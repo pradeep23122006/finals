@@ -9,13 +9,13 @@
   <nav class="navbar">
     <div class="container" style="display: flex; align-items: center; justify-content: space-between;">
       <div style="display: flex; align-items: center;">
-        <img src="https://pminternship.mca.gov.in/assets/img/MCA.svg" alt="MCA Logo" style="height: 50px; margin-right: 20px;">
-        <img src="https://pminternship.mca.gov.in/assets/images/img/pm_internship_logo_eng.svg" alt="PM Internship Logo" style="height: 50px;">
+        <img src="MCA.svg" alt="MCA Logo" style="height: 50px; margin-right: 20px;">
+        <img src="pm_internship_logo_eng.svg" alt="PM Internship Logo" style="height: 50px;">
       </div>
       <div>
         <a href="index.html" class="btn btn-link-modern">Home</a>
         <a href="schemes.html" class="btn btn-link-modern">About Scheme</a>
-        <a href="signup.html" class="btn btn-link-modern">Student Registration</a>
+        <a href="student.html" class="btn btn-link-modern">Student Registration</a>
         <a href="company.html" class="btn btn-link-modern">Company Registration</a>
         <a href="guidelines.html" class="btn btn-link-modern">Guidelines</a>
         <a href="contact.html" class="btn btn-link-modern">Contact Us</a>
@@ -77,7 +77,6 @@
           <h5>Contact Information</h5>
           <p>Email: support@pminternship.gov.in</p>
           <p>Phone: +91-11-12345678</p>
-          <p>Address: Ministry of Corporate Affairs, New Delhi, India</p>
         </div>
         <div class="col-md-6 text-end">
           <h5>Help & Support</h5>
@@ -86,7 +85,7 @@
         </div>
       </div>
       <hr>
-      <p class="text-center mb-0">© 2023 PM Internship Scheme. All rights reserved.</p>
+      <p class="text-center mb-0">© 2025 PM Internship Scheme. All rights reserved.</p>
     </div>
   </footer>
 
@@ -242,11 +241,30 @@
       tour.start();
     });
 
-    // Optionally start tour on first visit
+    // Start tour on first visit or if not completed
     if (!localStorage.getItem('tourCompleted')) {
       tour.start();
-      localStorage.setItem('tourCompleted', 'true');
     }
+
+    // Set completed flag when tour is finished
+    tour.on('complete', () => {
+      localStorage.setItem('tourCompleted', 'true');
+    });
   </script>
+
+  <!-- AI Chatbot -->
+  <div id="chat-window" class="chat-window">
+    <div class="chat-header">
+      <h5>PM Internship Assistant</h5>
+      <span id="close-chat">&times;</span>
+    </div>
+    <div id="chat-messages"></div>
+    <form id="chat-form">
+      <input type="text" id="chat-input" placeholder="Type your message...">
+      <button type="submit">Send</button>
+    </form>
+  </div>
+  <button id="chatbot-btn" class="chatbot-btn"><img src="https://cdn.shopify.com/app-store/listing_images/e01adf90e60dcfdb4e39b5485859d18b/icon/CMrqusKG_4wDEAE=.png" alt="AI Bot"></button>
+  <script src="chatbot.js"></script>
 </body>
 </html>

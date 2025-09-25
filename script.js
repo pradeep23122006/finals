@@ -1,28 +1,52 @@
 document.getElementById('studentForm').addEventListener('submit', function(event) {
   event.preventDefault();
 
-  const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value;
-  const studentSkills = document.getElementById('skills').value.split(',').map(skill => skill.trim().toLowerCase());
+  // Show loading animation
+  const studentForm = document.getElementById('studentForm');
+  const spinner = document.getElementById('spinner');
+  const matchesDiv = document.getElementById('matches');
   
-  const locationSelect = document.getElementById('location');
-  let preferredLocation = locationSelect.value;
-  if (preferredLocation === 'Other') {
-    preferredLocation = document.getElementById('otherLocation').value;
-  }
-  preferredLocation = preferredLocation.toLowerCase();
+  studentForm.style.display = 'none';
+  spinner.style.display = 'block';
+  matchesDiv.style.display = 'none';
 
-  const matches = companies.filter(company => {
-    const companySkills = company.skills.map(skill => skill.toLowerCase());
-    const companyLocation = company.location.toLowerCase();
+  // Simulate loading with delay
+  setTimeout(() => {
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const skills = document.getElementById('skills').value;
+    const studentSkills = skills.split(',').map(skill => skill.trim().toLowerCase());
+    
+    const locationSelect = document.getElementById('location');
+    let preferredLocation = locationSelect.value;
+    if (preferredLocation === 'Other') {
+      preferredLocation = document.getElementById('otherLocation').value;
+    }
+    preferredLocation = preferredLocation.toLowerCase();
 
-    const hasMatchingSkill = studentSkills.some(studentSkill => companySkills.includes(studentSkill));
-    const isMatchingLocation = preferredLocation === '' || companyLocation === preferredLocation || company.location === 'Remote';
+    // Temporarily store student data in localStorage
+    const studentData = { name, email, skills, location: preferredLocation };
+    localStorage.setItem('studentData', JSON.stringify(studentData));
 
-    return hasMatchingSkill && isMatchingLocation;
-  });
+    let matches = companies.filter(company => {
+      const companySkills = company.skills.map(skill => skill.toLowerCase());
+      const companyLocation = company.location.toLowerCase();
 
-  displayMatches(matches);
+      const hasMatchingSkill = studentSkills.some(studentSkill => companySkills.includes(studentSkill));
+      const isMatchingLocation = preferredLocation === '' || companyLocation === preferredLocation || company.location === 'Remote';
+
+      return hasMatchingSkill && isMatchingLocation;
+    });
+
+    // Ensure at least two matches; if fewer, add top overall samples
+    if (matches.length < 2) {
+      const topSamples = companies.slice(0, 2 - matches.length);
+      matches = matches.concat(topSamples);
+    }
+
+    spinner.style.display = 'none';
+    displayMatches(matches.slice(0, 2));
+  }, 2000); // 2 second delay for loading effect
 });
 
 function displayMatches(matches) {
